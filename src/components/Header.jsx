@@ -252,7 +252,7 @@ export default function Header() {
                   </motion.a>
                   
                   <motion.a
-                    href="https://wa.me/923016705287"
+                    href="https://wa.me/923167052087"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="d-flex align-items-center gap-3 px-4 py-3 text-text-primary transition-all duration-200"
@@ -275,7 +275,7 @@ export default function Header() {
                       >
                         Alternate
                       </motion.small>
-                      <span className="text-sm">+92 301 6705287</span>
+                      <span className="text-sm">+92 316 7052087</span>
                     </span>
                   </motion.a>
                 </motion.div>

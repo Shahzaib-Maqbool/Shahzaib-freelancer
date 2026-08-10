@@ -301,7 +301,7 @@ export default function Contact() {
               </motion.div>
               <div>
                 <span style={{ fontSize: '12px', color: 'var(--muted)', display: 'block', marginBottom: '2px' }}>Phone / WhatsApp (Alternate)</span>
-                <b style={{ fontSize: '14.5px', fontWeight: '500' }}>+92 301 6705287</b>
+                <b style={{ fontSize: '14.5px', fontWeight: '500' }}>+92 316 7052087</b>
               </div>
             </motion.div>
 
