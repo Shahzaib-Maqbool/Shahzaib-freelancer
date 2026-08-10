@@ -27,19 +27,9 @@ export default function Contact() {
     setSending(true)
     setStatus({ text: 'Sending...', kind: '' })
 
-    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
-    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-
-    if (!serviceId || !templateId || !publicKey) {
-      console.error('❌ Missing EmailJS configuration!')
-      setStatus({
-        text: '❌ Email configuration missing. Please check your settings.',
-        kind: 'err',
-      })
-      setSending(false)
-      return
-    }
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_2ir2nli'
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_y3195z9'
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'uTAIjUvTftnE1Gkjz'
 
     const form = e.target
     const formData = new FormData(form)
