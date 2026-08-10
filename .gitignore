@@ -87,7 +87,6 @@ __mocks__/
 # Vercel
 .vercel
 .vercel/
-vercel.json
 
 # Netlify
 .netlify/
