@@ -7,9 +7,7 @@ import {
   FiSend, 
   FiUser, 
   FiMail as FiEmail, 
-  FiFileText,
-  FiMapPin,
-  FiClock
+  FiFileText
 } from 'react-icons/fi'
 import { 
   FaWhatsapp, 
@@ -18,14 +16,7 @@ import {
   FaTwitter,
   FaInstagram 
 } from 'react-icons/fa'
-import { 
-  BsChatDots, 
-  BsLightning,
-  BsStars,
-  BsCheck2Circle 
-} from 'react-icons/bs'
-import { MdEmail, MdPhone, MdSend } from 'react-icons/md'
-import { TbMessages, TbUser, TbMail, TbFileText } from 'react-icons/tb'
+import { BsChatDots } from 'react-icons/bs'
 
 export default function Contact() {
   const [status, setStatus] = useState({ text: '', kind: '' })
@@ -40,21 +31,44 @@ export default function Contact() {
     const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
     const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
 
+    if (!serviceId || !templateId || !publicKey) {
+      console.error('❌ Missing EmailJS configuration!')
+      setStatus({
+        text: '❌ Email configuration missing. Please check your settings.',
+        kind: 'err',
+      })
+      setSending(false)
+      return
+    }
+
+    const form = e.target
+    const formData = new FormData(form)
+
+    const templateParams = {
+      from_name: formData.get('from_name') || 'No name provided',
+      name: formData.get('from_name') || 'No name provided',
+      reply_to: formData.get('reply_to') || 'No email provided',
+      email: formData.get('reply_to') || 'No email provided',
+      user_email: formData.get('reply_to') || 'No email provided',
+      subject: formData.get('subject') || 'No subject provided',
+      message: formData.get('message') || 'No message provided',
+      time: new Date().toLocaleString(),
+    }
+
     emailjs
-      .sendForm(serviceId, templateId, e.target, {
+      .send(serviceId, templateId, templateParams, {
         publicKey: publicKey,
       })
       .then(
-        (result) => {
-          console.log('SUCCESS!', result.text)
+        () => {
           setStatus({
             text: "✅ Message sent successfully! I'll get back to you soon.",
             kind: 'ok'
           })
-          e.target.reset()
+          form.reset()
         },
         (error) => {
-          console.log('FAILED...', error.text)
+          console.error('❌ FAILED...', error)
           setStatus({
             text: '❌ Something went wrong. Please email webtechwebapps@gmail.com directly.',
             kind: 'err',
@@ -96,19 +110,6 @@ export default function Contact() {
         damping: 20
       }
     }
-  }
-
-  const floatIconVariants = {
-    animate: (i) => ({
-      y: [0, -10 - i * 3, 0],
-      rotate: [0, 10 - i * 2, 0],
-      transition: {
-        duration: 3 + i * 0.5,
-        repeat: Infinity,
-        ease: "easeInOut",
-        delay: i * 0.2,
-      }
-    })
   }
 
   const beamVariants = {
@@ -339,14 +340,8 @@ export default function Contact() {
               whileTap={{ scale: 0.95 }}
             >
               <motion.span
-                animate={{ 
-                  scale: [1, 1.2, 1],
-                }}
-                transition={{ 
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
               >
                 <FaWhatsapp size={18} />
               </motion.span>
@@ -372,11 +367,7 @@ export default function Contact() {
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{ color: social.color }}
-                  whileHover={{ 
-                    scale: 1.4,
-                    rotate: 360,
-                    transition: { duration: 0.5 }
-                  }}
+                  whileHover={{ scale: 1.4, rotate: 360, transition: { duration: 0.5 } }}
                   whileTap={{ scale: 0.8 }}
                 >
                   <social.icon size={20} />
@@ -431,10 +422,7 @@ export default function Contact() {
                       fontSize: '14px',
                       transition: 'all 0.3s ease',
                     }}
-                    whileFocus={{ 
-                      borderColor: '#4fd1c5',
-                      boxShadow: '0 0 20px rgba(79, 209, 197, 0.1)',
-                    }}
+                    whileFocus={{ borderColor: '#4fd1c5', boxShadow: '0 0 20px rgba(79, 209, 197, 0.1)' }}
                     whileHover={{ borderColor: 'rgba(79, 209, 197, 0.3)' }}
                   />
                 </div>
@@ -470,10 +458,7 @@ export default function Contact() {
                       fontSize: '14px',
                       transition: 'all 0.3s ease',
                     }}
-                    whileFocus={{ 
-                      borderColor: '#4fd1c5',
-                      boxShadow: '0 0 20px rgba(79, 209, 197, 0.1)',
-                    }}
+                    whileFocus={{ borderColor: '#4fd1c5', boxShadow: '0 0 20px rgba(79, 209, 197, 0.1)' }}
                     whileHover={{ borderColor: 'rgba(79, 209, 197, 0.3)' }}
                   />
                 </div>
@@ -511,10 +496,7 @@ export default function Contact() {
                     fontSize: '14px',
                     transition: 'all 0.3s ease',
                   }}
-                  whileFocus={{ 
-                    borderColor: '#4fd1c5',
-                    boxShadow: '0 0 20px rgba(79, 209, 197, 0.1)',
-                  }}
+                  whileFocus={{ borderColor: '#4fd1c5', boxShadow: '0 0 20px rgba(79, 209, 197, 0.1)' }}
                   whileHover={{ borderColor: 'rgba(79, 209, 197, 0.3)' }}
                 />
               </div>
@@ -553,10 +535,7 @@ export default function Contact() {
                     minHeight: '120px',
                     transition: 'all 0.3s ease',
                   }}
-                  whileFocus={{ 
-                    borderColor: '#4fd1c5',
-                    boxShadow: '0 0 20px rgba(79, 209, 197, 0.1)',
-                  }}
+                  whileFocus={{ borderColor: '#4fd1c5', boxShadow: '0 0 20px rgba(79, 209, 197, 0.1)' }}
                   whileHover={{ borderColor: 'rgba(79, 209, 197, 0.3)' }}
                 />
               </div>
@@ -579,22 +558,12 @@ export default function Contact() {
                 position: 'relative',
                 overflow: 'hidden',
               }}
-              whileHover={{ 
-                y: -3,
-                scale: 1.02,
-                boxShadow: '0 10px 30px rgba(79, 209, 197, 0.3)',
-              }}
+              whileHover={{ y: -3, scale: 1.02, boxShadow: '0 10px 30px rgba(79, 209, 197, 0.3)' }}
               whileTap={{ scale: 0.95 }}
             >
               <motion.span
-                animate={{ 
-                  x: sending ? [0, 5, 0] : [0, 5, 0],
-                }}
-                transition={{ 
-                  duration: 1.5,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
               >
                 <FiSend size={18} />
               </motion.span>
